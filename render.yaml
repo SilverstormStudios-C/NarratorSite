@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: narrator-backend
+    env: python
+    plan: free
+    buildCommand: ""
+    startCommand: gunicorn app:app -w 2 -k gthread -t 120 -b 0.0.0.0:$PORT
+    envVars:
+      - key: OPENAI_API_BASE
+        value: https://openrouter.ai/api/v1   # or your provider base
+      - key: OPENAI_API_KEY
+        sync: false  # add the secret in Render dashboard
+      - key: OPENAI_MODEL
+        value: meta-llama/llama-3.1-8b-instruct:free  # example model on OpenRouter
